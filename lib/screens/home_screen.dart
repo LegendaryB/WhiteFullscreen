@@ -18,13 +18,18 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  initState() {
+    super.initState();
+
     SystemChrome.setSystemUIChangeCallback((systemOverlaysAreVisible) async {
       setState(() {
         _isFullscreen = !systemOverlaysAreVisible;
       });
     });
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       extendBody: true,
