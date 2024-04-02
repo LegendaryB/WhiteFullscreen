@@ -12,7 +12,8 @@ Flutter app for Android to show a blank screen.
 </div><br>
 
 ## 🎯 Motivation to create
-
+I got into photography lately and really like photos were you point your smartphone at the subject and later edit the DSLR photo onto the screen.
+So I made this app for simple editing the photos afterwards.
 
 ## ⚡️ Preview
 
