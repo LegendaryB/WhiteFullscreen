@@ -25,6 +25,6 @@ class MainApp extends StatelessWidget {
               ThemeData().colorScheme.copyWith(secondary: Colors.deepPurple),
           useMaterial3: false,
         ),
-        home: const HomeScreen(title: 'White Fullscreen'));
+        home: const HomeScreen());
   }
 }

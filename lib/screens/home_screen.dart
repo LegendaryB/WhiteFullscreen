@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:white_fullscreen/widgets/color_picker.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.title});
-
-  final String title;
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => HomeScreenState();
@@ -13,9 +12,8 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   bool _isFullscreen = true;
 
-  void setFullscreen() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-  }
+  Color _backgroundColor = Colors.white;
+  Color? _selectedColor;
 
   @override
   initState() {
@@ -28,12 +26,47 @@ class HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void setFullscreen() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: _backgroundColor,
       extendBody: true,
       extendBodyBehindAppBar: true,
+      body: GestureDetector(
+        onTap: () {
+          showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                    title: const Text('Select background color'),
+                    content: ColorPicker(
+                      selectedColor: _backgroundColor,
+                      onColorChanged: (selectedColor) {
+                        _selectedColor = selectedColor;
+                      },
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text('CANCEL'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+
+                          setState(() {
+                            _backgroundColor = _selectedColor!;
+                          });
+                        },
+                        child: const Text('SELECT'),
+                      ),
+                    ],
+                  ));
+        },
+      ),
       floatingActionButton: AnimatedOpacity(
           opacity: !_isFullscreen ? 1.0 : 0.0,
           duration: const Duration(milliseconds: 200),
